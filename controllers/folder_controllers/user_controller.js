@@ -14,6 +14,19 @@ class user_controller{
         next(err)
       })
   }
+  
+  static async create(req,res,next){
+    let {
+      name
+    } = req.body
+    user.create(req.body)
+    .then(data=>{
+      res.status(200).json(data)
+    })
+    .catch(err=>{
+      next(err)
+    })
+  }
 }
 
 module.exports = user_controller;

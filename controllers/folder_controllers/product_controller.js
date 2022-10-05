@@ -5,6 +5,8 @@ const { generateToken, verifyToken } = require('../../helpers/jwt')
 
 class product_controller{
   static async findAll(req,res,next){
+    // include User , Category 
+    // User exclude password 
     product.findAll()
       .then(data=>{
         res.status(200).json(data)
@@ -22,7 +24,7 @@ class product_controller{
       stock,
       imgUrl,
       categoryId,
-      authorId
+      authorId // dapat dari authens
     } = req.body
     product.create(req.body)
     .then(data=>{

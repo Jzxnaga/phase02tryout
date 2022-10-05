@@ -3,6 +3,7 @@ const { category } = require ("../../models");
 const { generateToken, verifyToken } = require('../../helpers/jwt')
 //nama harus sesuai nama tabel Sec User
 
+// PascalCase 
 class category_controller{
   
   static async findAll(req,res,next){

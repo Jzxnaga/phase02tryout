@@ -14,10 +14,15 @@ class user_controller{
         next(err)
       })
   }
-  
+
   static async create(req,res,next){
     let {
-      name
+      username,
+      email,
+      password,
+      role,
+      phoneNumber,
+      address
     } = req.body
     user.create(req.body)
     .then(data=>{
@@ -26,6 +31,37 @@ class user_controller{
     .catch(err=>{
       next(err)
     })
+  }
+
+  static async update (req, res, next) {
+    user.update(
+      {
+        email: req.body.email,
+        password: req.body.password,
+        role: req.body.role,
+        phoneNumber: req.body.phoneNumber,
+        address: req.body.address
+      },
+      {where: req.params.userId}
+    )
+    .then(data=> {
+      res.status(200).json(data)
+    })
+    .catch(next)
+  }
+
+  static async delete (req, res, next){
+    user.destroy({ where: { id: req.params.userId } })
+    .then(data=>{
+      res.status(200).json(data)
+    })
+    .catch(err=>{
+      next(err)
+    })
+  }
+
+  static async login (req,res,next){
+    
   }
 }
 

@@ -1,4 +1,7 @@
 'use strict';
+
+const { generatePassword } = require('../helpers/bcrypt')
+
 const {
   Model
 } = require('sequelize');
@@ -21,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     phoneNumber: DataTypes.STRING,
     address: DataTypes.STRING
   }, {
+    hooks:{
+      beforeCreate(body){
+        body.password = generatePassword(body.password)
+      }
+    },
     sequelize,
     modelName: 'user',
   });

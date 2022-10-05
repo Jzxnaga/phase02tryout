@@ -16,9 +16,15 @@ class product_controller{
 
   static async create(req,res,next){
     let {
-      name
+      name,
+      description,
+      price,
+      stock,
+      imgUrl,
+      categoryId,
+      authorId
     } = req.body
-    category.create(req.body)
+    product.create(req.body)
     .then(data=>{
       res.status(200).json(data)
     })
@@ -28,9 +34,17 @@ class product_controller{
   }
 
   static async update (req, res, next) {
-    category.update(
-      {name: req.body.name},
-      {where: req.params.categoryId}
+    product.update(
+      {
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        stock: req.body.stock,
+        imgUrl: req.body.imgUrl,
+        categoryId: req.body.categoryId,
+        authorId: req.body.authorId
+      },
+      {where: req.params.productId}
     )
     .then(data=> {
       res.status(200).json(data)
@@ -39,7 +53,7 @@ class product_controller{
   }
 
   static async delete (req, res, next){
-    Invoice.destroy({ where: { id: req.params.categoryId } })
+    product.destroy({ where: { id: req.params.productId } })
     .then(data=>{
       res.status(200).json(data)
     })

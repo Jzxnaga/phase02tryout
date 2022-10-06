@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       phoneNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.BIGINT
       },
       address: {
         type: Sequelize.STRING

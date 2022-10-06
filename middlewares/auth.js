@@ -1,14 +1,27 @@
 const jwt = require('jsonwebtoken')
 const secretKey= "KeyBoardWarrior"
 const db = require('../models')
+const {user} = require('../models')
 
 
-function authentication (req,res,next){
-    const access_token = req.headers.access_token
-    console.log(access_token,'masuk authen')
+
+async function authentication (req,res,next){
     try{
-        // const decoded = jwt.verify(access_token,secretKey)
-        // req.userData = decoded
+        const access_token = req.headers.access_token
+        console.log(access_token,'masuk authentikasi')
+        if (!access_token){
+            throw  {"name":"access_token null"}
+        }
+        const decoded = jwt.verify(access_token,secretKey)
+
+        const findUser = await user.findByPk(decoded.id)
+
+        if(!findUser){
+            throw  {"name":"user null"}
+        }
+
+        req.userData = decoded
+
         next()
     }
     catch(err){

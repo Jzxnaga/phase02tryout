@@ -25,9 +25,17 @@ module.exports = {
         type: Sequelize.STRING
       },
       categoryId: {
+        references:{
+          model:"categories",
+          key:"id"
+        },
         type: Sequelize.INTEGER
       },
       authorId: {
+        references:{
+          model:"users",
+          key:"id"
+        },
         type: Sequelize.INTEGER
       },
       createdAt: {

@@ -8,10 +8,14 @@ const category_routes = require('./folder_routes/category_route.js')
 
 
 
+// REST API 
+// plural + tidak ada kata kerja
 
-router.use('/user',authentication,user_routes)
-router.use('/product',authentication,product_routes)
-router.use('/category',authentication,category_routes)
+// POST /register 
+
+router.use('/users',user_routes)
+router.use('/products',product_routes)
+router.use('/categories',category_routes)
 
 
 

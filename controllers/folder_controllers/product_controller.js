@@ -15,6 +15,17 @@ class product_controller{
       })
   }
 
+  static async findOne(req,res,next){
+    product.findByPk(req.params.id,{include: [{ model: user , attributes:['username','email']}, {model: category} ]})
+      .then(data=>{
+        console.log(req.userData)
+        res.status(200).json(data)
+      })
+      .catch(err=>{
+        next(err)
+      })
+  }
+
   static async create(req,res,next){
     let body = {
       name: req.body.name,
@@ -52,23 +63,24 @@ class product_controller{
         stock: req.body.stock,
         imgUrl: req.body.imgUrl,
         categoryId: req.body.categoryId,
-        authorId: req.body.authorId
+        authorId: req.userData.id
       },
-      {where: req.params.productId}
+      {where: req.params.id}
       )
         .then(data=> {
         res.status(200).json(data)
       })
       .catch(next)
     }else{
-      throw ({message:'unauthorized to change someone else product'})
+      throw ({name:'unauthorized to change someone else product'})
     }
   }
 
   static async delete (req, res, next){
-    product.destroy({ where: { id: req.params.productId } })
+    console.log('try to delete')
+    product.destroy({ where: { id: req.params.id } })
     .then(data=>{
-      res.status(200).json(data)
+      res.status(200).json({"message": "product has been deleted"})
     })
     .catch(err=>{
       next(err)

@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         min:{
-          args:1,
+          args:[0],
           msg:"stock cannot be less than 1"
         },
         max:{

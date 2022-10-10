@@ -34,7 +34,7 @@ class user_controller{
       address})
 
     .then(data=>{
-      res.status(200).json(data)
+      res.status(200).json({username,email,role:"admin",phoneNumber,address})
     })
     .catch(err=>{
       next(err)
